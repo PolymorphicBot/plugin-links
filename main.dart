@@ -34,6 +34,8 @@ final RegExp NO_SPECIAL_CHARS = new RegExp(r'''[^\w`~!@#$%^&*()\-_=+\[\]:'",<.>/
 final RegExp NO_MULTI_SPACES = new RegExp(r' {2,}');
 
 
+final RegExp _yt_link_id = new RegExp(r'^.*(youtu.be/|v/|embed/|watch\?|youtube.com/user/[^#]*#([^/]*?/)*)\??v?=?([^#\&\?]*).*');
+
 void handle_message(data) {
   var msg = data['message'];
   if (link_regex.hasMatch(msg)) {
@@ -44,6 +46,8 @@ void handle_message(data) {
       if (url.contains("github.com/")) {
         return;
       }
+      
+      if (_yt_link_id.hasMatch(url)) return;
 
       http.get(url).then((http.Response response) {
         if (response.statusCode != 200) {
