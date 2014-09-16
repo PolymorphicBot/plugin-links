@@ -70,7 +70,7 @@ void handle_message(data) {
 
           bot.message(data['network'], data['target'], "[${Color.BLUE}Link Title${Color.RESET}] ${title}");
         } catch (e) {}
-      });
+      }).catchError((e) {});
     }
   }
 }
