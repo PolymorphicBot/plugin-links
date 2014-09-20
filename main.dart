@@ -12,11 +12,11 @@ import 'package:html5lib/dom.dart';
 
 import 'package:polymorphic_bot/api.dart';
 
-APIConnector bot;
+BotConnector bot;
 
 void main(List<String> args, port) {
   print("[Links] Loading Plugin");
-  bot = new APIConnector(port);
+  bot = new BotConnector(port);
 
   bot.handleEvent((data) {
     switch (data['event']) {
