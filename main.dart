@@ -1,7 +1,7 @@
 library links;
 
 import 'package:http/http.dart' as http;
-import "package:irc/irc.dart";
+import "package:irc/client.dart";
 
 import 'package:html5lib/parser.dart' as html5 show parse;
 
