@@ -55,7 +55,7 @@ void handleMessage(data) {
             return;
           }
 
-          title = title.replaceAll(NO_SPECIAL_CHARS, ' ').replaceAll(NO_MULTI_SPACES, ' ');
+          title = title.replaceAll(NO_SPECIAL_CHARS, ' ').replaceAll(NO_MULTI_SPACES, ' ').trim();
 
           bot.message(data['network'], data['target'], "[${Color.BLUE}Link Title${Color.RESET}] ${title}");
         } catch (e) {}
