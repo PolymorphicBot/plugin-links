@@ -8,15 +8,12 @@ import 'package:html5lib/parser.dart' as html5 show parse;
 import 'package:polymorphic_bot/api.dart';
 
 BotConnector bot;
-EventManager eventManager;
 
-void main(List<String> args, port) {
+void main(List<String> args, Plugin plugin) {
   print("[Links] Loading Plugin");
-  bot = new BotConnector(port);
-
-  eventManager = bot.createEventManager();
+  bot = plugin.getBot();
   
-  eventManager.on("message").listen(handleMessage);
+  bot.on("message").listen(handleMessage);
 }
 
 final RegExp LINK_REGEX = new RegExp(r'\(?\b((http|https)://|www[.])[-A-Za-z0-9+&@#/%?=~_()|!:,.;]*[-A-Za-z0-9+&@#/%=~_()|]');
