@@ -13,7 +13,7 @@ void main(List<String> args, Plugin plugin) {
   print("[Links] Loading Plugin");
   bot = plugin.getBot();
   
-  bot.on("message").listen(handleMessage);
+  plugin.on("message").listen(handleMessage);
 }
 
 final RegExp LINK_REGEX = new RegExp(r'\(?\b((http|https)://|www[.])[-A-Za-z0-9+&@#/%?=~_()|!:,.;]*[-A-Za-z0-9+&@#/%=~_()|]');
