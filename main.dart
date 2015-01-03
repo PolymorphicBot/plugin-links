@@ -45,7 +45,7 @@ void handleMessage(MessageEvent event) {
       if (YT_LINK.hasMatch(url)) return;
       
       getLinkTitle(url).then((title) {
-        bot.message(event.network, event.target, "[${IRC.Color.BLUE}Link Title${IRC.Color.RESET}] ${title}");
+        bot.sendMessage(event.network, event.target, "[${IRC.Color.BLUE}Link Title${IRC.Color.RESET}] ${title}");
       }).catchError((e) {});
     }
   }
