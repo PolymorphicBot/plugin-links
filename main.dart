@@ -1,36 +1,35 @@
 library links;
 
 import 'dart:async';
-
 import 'package:http/http.dart' as http;
 import "package:irc/client.dart" as IRC;
-
 import 'package:html5lib/parser.dart' as html5 show parse;
-
 import 'package:polymorphic_bot/api.dart';
 
+@BotInstance()
 BotConnector bot;
 
-void main(List<String> args, Plugin plugin) {
+void main(List<String> args, Plugin plugin) => plugin.load();
+
+@Start()
+start() {
   print("[Links] Loading Plugin");
-  bot = plugin.getBot();
-  
-  plugin.addRemoteMethod("getLinkTitle", (call) {
+}
+
+@RemoteMethod(name: "getLinkTitle")
+getLinkTitleRemote(RemoteCall call) =>
     getLinkTitle(call.getArgument("value")).then((title) {
       call.reply(title);
     }).catchError((e) {
       call.reply(null);
     });
-  });
-
-  bot.onMessage((event) => handleMessage(event));
-}
 
 final RegExp LINK_REGEX = new RegExp(r'\(?\b((http|https)://|www[.])[-A-Za-z0-9+&@#/%?=~_()|!:,.;]*[-A-Za-z0-9+&@#/%=~_()|]');
 final RegExp NO_SPECIAL_CHARS = new RegExp(r'''[^\w`~!@#$%^&*()\-_=+\[\]:'",<.>/?\\| ]''');
 final RegExp NO_MULTI_SPACES = new RegExp(r' {2,}');
 final RegExp YT_LINK = new RegExp(r'^.*(youtu.be/|v/|embed/|watch\?|youtube.com/user/[^#]*#([^/]*?/)*)\??v?=?([^#\&\?]*).*');
 
+@OnMessage()
 void handleMessage(MessageEvent event) {
   var msg = event.message;
   if (LINK_REGEX.hasMatch(msg)) {
@@ -48,6 +47,7 @@ void handleMessage(MessageEvent event) {
         if (title == null || title.toString() == "null") {
           return;
         }
+        
         bot.sendMessage(event.network, event.target, "[${IRC.Color.BLUE}Link Title${IRC.Color.RESET}] ${title}");
       }).catchError((e) {});
     }
