@@ -9,7 +9,7 @@ import 'package:polymorphic_bot/api.dart';
 @BotInstance()
 BotConnector bot;
 
-void main(List<String> args, Plugin plugin) => plugin.load();
+main(args, port) => polymorphic(args, port);
 
 @Start()
 start() {
